@@ -1,3 +1,4 @@
+
 #include "lists.h"
 #include <stdlib.h>
 
@@ -11,20 +12,28 @@
 
 dlistint_t *add_dnodeint(dlistint_t **head, const int n)
 {
+	dlistint_t *ptr = NULL;
 	dlistint_t *node = malloc(sizeof(dlistint_t));
 
 	if (node == NULL)
 	{
 		return (NULL);
 	}
-
-	/* Create new node */
+	ptr = *head;
 	node->n = n;
 	node->prev = NULL;
 
-	/* Assign new node to beginning of the list */
-	node->next = *head;
-	*head = node;
-
-	return (*head);
+	if (ptr == NULL)
+	{
+		node->next = NULL;
+		*head = node;
+		return (*head);
+	}
+	else
+	{
+		node->next = ptr;
+		ptr->prev = node;
+		*head = node;
+		return (*head);
+	}
 }
